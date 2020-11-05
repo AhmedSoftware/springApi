@@ -2,8 +2,8 @@ package com.ahmedsoftware.springApi.student;
 
 public class Student {
     
-    private final Integer studentId;
-    private final String studentName;
+    private  Integer studentId;
+    private  String studentName;
     
     public Student(Integer studentId, String studentName) {
         this.studentId = studentId;
@@ -16,5 +16,22 @@ public class Student {
     
     public String getStudentName() {
         return studentName;
+    }
+    
+    public void setStudentName(String studentName) {
+        this.studentName = studentName;
+    }
+    
+    public void setStudentId(Integer studentId){
+        this.studentId=studentId;
+    }
+    
+    
+    @Override
+    public String toString() {
+        return "Student{" +
+                "studentId=" + studentId +
+                ", studentName='" + studentName + '\'' +
+                '}';
     }
 }
