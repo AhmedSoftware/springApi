@@ -36,9 +36,9 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter{
         http
                 .csrf().disable() //disable csrf to secure our application
                 .authorizeRequests()
-                /*.antMatchers("/","index","/css/*","/js/*").permitAll()
+                .antMatchers("/","index","/css/*","/js/*").permitAll()
                 .antMatchers("/api/**").hasRole(STUDENT.name())
-                .antMatchers(DELETE,"/management/api/**").hasAuthority(COURSE_WRITE.getPermission())
+                /*.antMatchers(DELETE,"/management/api/**").hasAuthority(COURSE_WRITE.getPermission())
                 .antMatchers(POST,"/management/api/**").hasAuthority(COURSE_WRITE.getPermission())
                 .antMatchers(PUT,"/management/api/**").hasAuthority(COURSE_WRITE.getPermission())
                 .antMatchers("/management/api/**").hasAnyRole(ADMIN.name(),ADMINTRAINEE.name())*/

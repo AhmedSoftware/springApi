@@ -29,7 +29,7 @@ public class StudentManagementController {
     }
     
     @DeleteMapping(path = "/{studentId}")
-    @PreAuthorize("hasAuthority('student:write')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void deleteStudent(@PathVariable("studentId") Integer studentId){
         studentService.deleteStudent(studentId);
     }
