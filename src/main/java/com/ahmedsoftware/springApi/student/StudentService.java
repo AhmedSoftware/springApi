@@ -3,17 +3,21 @@ package com.ahmedsoftware.springApi.student;
 
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 @Service
 public class StudentService {
     
-    public final List<Student> studentList = Arrays.asList(
-            new Student(1,"Ahmed ali"),
-            new Student(2,"Galiss ali"),
-            new Student(3,"azad ali")
-    );
+    public  List<Student> studentList;
+    
+    public StudentService() {
+        this.studentList = new ArrayList<>();
+        studentList.add(new Student(1,"Ahmed ali"));
+        studentList.add(new Student(2,"galiss ali"));
+        studentList.add(new Student(3,"Azad ali"));
+    }
     
     public List<Student> getAllStudent(){
         return studentList;
@@ -27,10 +31,10 @@ public class StudentService {
     }
     
     public Student registerStudent(Student student){
-          student.setStudentId(studentList.size()+1);
-          studentList.add(student);
-          System.out.println("register :" + student );
-          return student;
+        student.setStudentId(studentList.size()+1);
+        studentList.add(student);
+        System.out.println("register :" + student );
+        return student;
     }
     
     public Student updateStudent(Integer studentId,Student student){

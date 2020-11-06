@@ -1,9 +1,13 @@
 package com.ahmedsoftware.springApi.student;
 
+
 public class Student {
     
     private  Integer studentId;
     private  String studentName;
+    
+    public Student() {
+    }
     
     public Student(Integer studentId, String studentName) {
         this.studentId = studentId;
