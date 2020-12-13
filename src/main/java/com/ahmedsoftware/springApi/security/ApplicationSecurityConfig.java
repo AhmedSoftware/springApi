@@ -1,8 +1,11 @@
 package com.ahmedsoftware.springApi.security;
 
+import com.ahmedsoftware.springApi.auth.ApplicationUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -27,10 +30,13 @@ import static com.ahmedsoftware.springApi.security.ApplicationUserRole.*;
 public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter{
     
     private final PasswordEncoder passwordEncoder;
+    private final ApplicationUserService applicationUserService;
     
     @Autowired
-    public ApplicationSecurityConfig(PasswordEncoder passwordEncoder) {
+    public ApplicationSecurityConfig(PasswordEncoder passwordEncoder,
+                                     ApplicationUserService applicationUserService) {
         this.passwordEncoder = passwordEncoder;
+        this.applicationUserService=applicationUserService;
     }
     
     @Override
@@ -63,31 +69,19 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter{
                     .deleteCookies("JSESSIONID","remember-me")
                     .logoutSuccessUrl("/login");
     }
-    
+
     @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.authenticationProvider(daoAuthenticationProvider());
+    }
+
     @Bean
-    protected UserDetailsService userDetailsService() {
-        UserDetails azadUser=User.builder()
-                .username("azad")
-                .password(passwordEncoder.encode("password"))
-                .authorities(STUDENT.grantedAuthorities())
-                .build();
-        
-        UserDetails aliUser = User.builder()
-                .username("ali")
-                .password(passwordEncoder.encode("password12345."))
-                .authorities(ADMIN.grantedAuthorities())
-                .build();
-    
-        UserDetails galissUser = User.builder()
-                .username("galiss")
-                .password(passwordEncoder.encode("password12345."))
-                .authorities(ADMINTRAINEE.grantedAuthorities())
-                .build();
-    
-        return new InMemoryUserDetailsManager(
-                azadUser,
-                aliUser,
-                galissUser);
+    public DaoAuthenticationProvider daoAuthenticationProvider(){
+
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+        provider.setPasswordEncoder(passwordEncoder);
+        provider.setUserDetailsService(applicationUserService);
+
+        return provider;
     }
 }
