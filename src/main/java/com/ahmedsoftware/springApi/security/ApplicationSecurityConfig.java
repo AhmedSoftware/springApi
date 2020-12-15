@@ -1,6 +1,7 @@
 package com.ahmedsoftware.springApi.security;
 
 import com.ahmedsoftware.springApi.auth.ApplicationUserService;
+import com.ahmedsoftware.springApi.jwt.JwtConfig;
 import com.ahmedsoftware.springApi.jwt.JwtTokenVerifier;
 import com.ahmedsoftware.springApi.jwt.JwtUsernameAndPasswordAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,7 @@ import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 
+import javax.crypto.SecretKey;
 import java.util.concurrent.TimeUnit;
 
 import static com.ahmedsoftware.springApi.security.ApplicationUserRole.*;
@@ -31,26 +33,34 @@ import static com.ahmedsoftware.springApi.security.ApplicationUserRole.*;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter{
-    
+
     private final PasswordEncoder passwordEncoder;
     private final ApplicationUserService applicationUserService;
-    
+    private final SecretKey secretKey;
+    private final JwtConfig jwtConfig;
+
+
     @Autowired
     public ApplicationSecurityConfig(PasswordEncoder passwordEncoder,
-                                     ApplicationUserService applicationUserService) {
+                                     ApplicationUserService applicationUserService,
+                                     SecretKey secretKey,
+                                     JwtConfig jwtConfig
+    ) {
         this.passwordEncoder = passwordEncoder;
         this.applicationUserService=applicationUserService;
+        this.secretKey=secretKey;
+        this.jwtConfig=jwtConfig;
     }
-    
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
                 .sessionManagement()
-                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .addFilter(new JwtUsernameAndPasswordAuthenticationFilter(authenticationManager()))
-                .addFilterAfter(new JwtTokenVerifier(),JwtUsernameAndPasswordAuthenticationFilter.class)
+                .addFilter(new JwtUsernameAndPasswordAuthenticationFilter(authenticationManager(),jwtConfig,secretKey))
+                .addFilterAfter(new JwtTokenVerifier(secretKey,jwtConfig),JwtUsernameAndPasswordAuthenticationFilter.class)
                 .authorizeRequests()
                 .antMatchers("/","index","/css/*","/js/*").permitAll()
                 .antMatchers("/api/**").hasRole(STUDENT.name())
