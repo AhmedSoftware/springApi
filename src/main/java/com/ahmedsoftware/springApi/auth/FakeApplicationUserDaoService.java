@@ -1,10 +1,8 @@
 package com.ahmedsoftware.springApi.auth;
 
-import com.ahmedsoftware.springApi.student.Student;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import com.ahmedsoftware.springApi.security.ApplicationUserRole;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
