@@ -1,6 +1,7 @@
 package com.ahmedsoftware.springApi.security;
 
 import com.ahmedsoftware.springApi.auth.ApplicationUserService;
+import com.ahmedsoftware.springApi.jwt.JwtTokenVerifier;
 import com.ahmedsoftware.springApi.jwt.JwtUsernameAndPasswordAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
