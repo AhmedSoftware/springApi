@@ -50,6 +50,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter{
                     .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .addFilter(new JwtUsernameAndPasswordAuthenticationFilter(authenticationManager()))
+                .addFilterAfter(new JwtTokenVerifier(),JwtUsernameAndPasswordAuthenticationFilter.class)
                 .authorizeRequests()
                 .antMatchers("/","index","/css/*","/js/*").permitAll()
                 .antMatchers("/api/**").hasRole(STUDENT.name())
