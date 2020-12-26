@@ -1,4 +1,4 @@
-[![forthebadge](https://forthebadge.com/images/badges/cc-0.svg)](https://forthebadge.com) [![forthebadge](https://forthebadge.com/images/badges/made-with-java.svg)](https://www.java.com/fr/) [!(spring)](https://spring.io/)
+[![forthebadge](https://forthebadge.com/images/badges/cc-0.svg)](https://forthebadge.com) [![forthebadge](https://forthebadge.com/images/badges/made-with-java.svg)](https://www.java.com/fr/)
 
 # Spring API: a securised spring API
 
