@@ -1,4 +1,23 @@
-# springApi
+[![forthebadge](https://forthebadge.com/images/badges/cc-0.svg)](https://forthebadge.com) [![forthebadge](https://forthebadge.com/images/badges/made-with-javascript.svg)](https://forthebadge.com) [![forthebadge](https://forthebadge.com/images/badges/uses-css.svg)](https://forthebadge.com)
+
+# Spring API: a securised spring API
+
+this application construct a spring security api
+
+## Technologies
+- Java
+- Spring
+
+
+## Authors
+
+Our code squad : Ahmed ALI
+
+## Licensing
+
+This project was built under the Creative Commons licence.
+
+## Page example
 
 ![login page](./fileReadme/loginpage.png)
 
